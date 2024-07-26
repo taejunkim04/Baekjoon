@@ -10,27 +10,21 @@ public class Main {
         int caseNum = Integer.parseInt(reader.readLine());
         for (int i = 0; i < caseNum; i++) {
             StringTokenizer tk = new StringTokenizer(reader.readLine());
-            caDate(Integer.parseInt(tk.nextToken()), Integer.parseInt(tk.nextToken()), Integer.parseInt(tk.nextToken()), Integer.parseInt(tk.nextToken()));
+            caDate(Integer.parseInt(tk.nextToken()), Integer.parseInt(tk.nextToken()), Integer.parseInt(tk.nextToken())-1, Integer.parseInt(tk.nextToken())-1);
         }
         sb.deleteCharAt(sb.length() - 1);
         System.out.println(sb.toString());
     }
 
-    public static void caDate(int n, int m, int x, int y) {
-        int temp = 0;
+    public static void caDate(int m, int n, int x, int y) {
+        int answer = -1;
 
-        for (int i = 1; ; i++) {
-            if ((m * i) % n == 0) {
-                temp = m * i;
+        for (int i = x; i < n * m; i += m) {
+            if (i % n == y) {
+                answer = i + 1;
                 break;
             }
         }
-        for (int i = x; i <= temp; i += n) {
-            if ((i - y) % m == 0) {
-                sb.append(i).append("\n");
-                return;
-            }
-        }
-        sb.append(-1).append("\n");
+        sb.append(answer).append("\n");
     }
 }
