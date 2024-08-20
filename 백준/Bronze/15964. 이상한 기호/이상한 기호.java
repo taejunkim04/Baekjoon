@@ -9,8 +9,8 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer tk = new StringTokenizer(reader.readLine());
 
-        int n = Integer.parseInt(tk.nextToken());
-        int m = Integer.parseInt(tk.nextToken());
+        long n = Long.parseLong(tk.nextToken());
+        long m = Long.parseLong(tk.nextToken());
         System.out.println((n + m) * (n - m));
     }
 }
