@@ -4,14 +4,13 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int[] values;
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer tk = new StringTokenizer(reader.readLine());
         int valueCou = Integer.parseInt(tk.nextToken());
         int caseCou = Integer.parseInt(tk.nextToken());
 
-        values = new int[valueCou];
+        int[] values = new int[valueCou];
         tk = new StringTokenizer(reader.readLine());
         values[0] = Integer.parseInt(tk.nextToken());
         for (int i = 1; i < valueCou; i++) {
