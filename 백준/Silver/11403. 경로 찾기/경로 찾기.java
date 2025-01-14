@@ -20,7 +20,9 @@ public class Main {
             }
         }
         for (int i = 0; i < size; i++) {
-            run();
+            if (!run()) {
+                 break;
+            }
         }
         for (int[] ints : check) {
             for (int anInt : ints) {
@@ -30,18 +32,20 @@ public class Main {
         }
         System.out.println(sb);
     }
-    static void run() {
+    static boolean run() {
+        boolean change = false;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (check[i][j] == 1) {
                     for (int k = 0; k < size; k++) {
                         if (check[j][k] == 1) {
                             check[i][k] = 1;
+                            change = true;
                         }
                     }
                 }
             }
         }
+        return change;
     }
-
 }
