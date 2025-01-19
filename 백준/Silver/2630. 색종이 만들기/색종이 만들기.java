@@ -4,49 +4,47 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    //색종이 만들기 다시 풀기
+    static int blue = 0;
     static int white = 0;
-    static int black = 0;
-    static boolean[][] paper;
+    static boolean[][] map;
+
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int size = Integer.parseInt(reader.readLine());
-        paper = new boolean[size][size];
+        int length = Integer.parseInt(reader.readLine());
+        map = new boolean[length][length];
         StringTokenizer tk;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < length; i++) {
             tk = new StringTokenizer(reader.readLine());
-            for (int j = 0; j < size; j++) {
-                paper[i][j] = Integer.parseInt(tk.nextToken()) == 1;
+            for (int j = 0; j < length; j++) {
+                map[i][j] = Integer.parseInt(tk.nextToken()) == 1;
             }
         }
-        parti(0, 0, size);
+        pation(length, 0, 0);
         System.out.println(white);
-        System.out.println(black);
+        System.out.println(blue);
     }
 
-    static void parti(int x, int y, int n) {
-        boolean flag = true;
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if(paper[x][y] != paper[x + i][y + j]) {
-                    flag = false;
-                    break;
+    static void pation(int size, int startX, int startY) {
+        boolean check = map[startX][startY];
+        boolean okay = true;
+        for (int i = startX; i < startX+size; i++) {
+            for (int j = startY; j < startY+size; j++) {
+                if (check != map[i][j]) {
+                    pation(size / 2, startX, startY);
+                    pation(size / 2, startX, startY + size/2);
+                    pation(size / 2, startX + size/2, startY);
+                    pation(size / 2, startX + size / 2, startY + size / 2);
+                    return;
                 }
-                if(!flag)
-                    break;
             }
         }
-        // 탐색한 영역이 한가지 색으로 통일된 경우
-        if (flag) {
-            if(!paper[x][y]) {
+        if (okay) {
+            if (check) {
+                blue++;
+            } else {
                 white++;
-            }else {
-                black++;
             }
-        }else {
-            parti(x, y, n / 2);
-            parti(x + n / 2, y, n / 2);
-            parti(x, y + n / 2, n / 2);
-            parti(x + n / 2, y + n / 2, n / 2);
         }
     }
 }
