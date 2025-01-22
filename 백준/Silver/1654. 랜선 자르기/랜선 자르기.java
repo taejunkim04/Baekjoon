@@ -4,44 +4,40 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int[] have;
-    static int n, m;
-
+    //랜선자르기(다시 풀기)
+    static int[] lengths;
+    static int count, needLen;
+    static long min, max;
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer tk = new StringTokenizer(reader.readLine());
-        n = Integer.parseInt(tk.nextToken());
-        m = Integer.parseInt(tk.nextToken());
-        have = new int[n];
-        long max = 0;
-
-        for (int i = 0; i < n; i++) {
-            have[i] = Integer.parseInt(reader.readLine());
-            if (have[i] > max) {
-                max = have[i];
+        count = Integer.parseInt(tk.nextToken());
+        needLen = Integer.parseInt(tk.nextToken());
+        lengths = new int[count];
+        min = 0;
+        max = 0;
+        for (int i = 0; i < count; i++) {
+            lengths[i] = Integer.parseInt(reader.readLine());
+            if (max < lengths[i]) {
+                max = lengths[i];
             }
         }
         max++;
-
-        long min = 0;
-        long mid;
-
+        run();
+        System.out.println(min - 1);
+    }
+    static void run() {
         while (min < max) {
-            mid = (max + min) / 2;
-            if (div(mid) < m) {
+            long mid = (min + max) / 2;
+            long temp = 0;
+            for (int length : lengths) {
+                temp += length / mid;
+            }
+            if (temp < needLen) {
                 max = mid;
             } else {
                 min = mid + 1;
             }
         }
-        System.out.println(min-1);
-    }
-
-    static long div(long cutLength) {
-        long count = 0;
-        for (int i : have) {
-            count += i / cutLength;
-        }
-        return count;
     }
 }
