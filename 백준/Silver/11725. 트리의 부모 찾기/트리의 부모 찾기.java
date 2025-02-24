@@ -4,44 +4,42 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-    //트리의 부모 찾기
-    static int[] superNodes;
-    static boolean[] visited;
-    static int nodeCou;
+    //트리의 부모 찾기(다시 풀기)
+    static int[] superNode;
     static ArrayList<Integer>[] list;
+    static boolean[] visited;
+
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        nodeCou = Integer.parseInt(reader.readLine());
-        superNodes = new int[nodeCou + 1];
-        list = new ArrayList[nodeCou + 1];
-        for (int i = 1; i <= nodeCou; i++) {
+        int count = Integer.parseInt(reader.readLine());
+        list = new ArrayList[count + 1];
+        for (int i = 1; i <= count; i++) {
             list[i] = new ArrayList<>();
         }
-        visited = new boolean[nodeCou + 1];
+        superNode = new int[count + 1];
+        visited = new boolean[count + 1];
         StringTokenizer tk;
-        for (int i = 1; i < nodeCou; i++) {
+        for (int i = 1; i < count; i++) {
             tk = new StringTokenizer(reader.readLine());
-            int x = Integer.parseInt(tk.nextToken());
-            int y = Integer.parseInt(tk.nextToken());
-            list[x].add(y);
-            list[y].add(x);
+            int node1 = Integer.parseInt(tk.nextToken());
+            int node2 = Integer.parseInt(tk.nextToken());
+            list[node1].add(node2);
+            list[node2].add(node1);
         }
-        dfs(1);
-
+        check(1);
         StringBuilder sb = new StringBuilder();
-        for (int i = 2; i <= nodeCou; i++) {
-            sb.append(superNodes[i]).append("\n");
+        for (int i = 2; i <= count; i++) {
+            sb.append(superNode[i]).append("\n");
         }
-        sb.deleteCharAt(sb.length() - 1);
         System.out.println(sb);
     }
 
-    static void dfs(int start) {
-        visited[start] = true;
-        for (int i : list[start]) {
+    static void check(int par) {
+        for (int i : list[par]) {
             if (!visited[i]) {
-                superNodes[i] = start;
-                dfs(i);
+                superNode[i] = par;
+                visited[i] = true;
+                check(i);
             }
         }
     }
