@@ -6,13 +6,13 @@ import java.util.StringTokenizer;
 public class Main {
     static int count;
     static int[][] arr;
-    static Integer[][] dp;
+    static int[] dp;
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         count = Integer.parseInt(reader.readLine());
 
         arr = new int[count][count];
-        dp = new Integer[count][count];
+        dp = new int[count];
 
         StringTokenizer tk;
         for (int i = 0; i < count; i++) {
@@ -21,21 +21,16 @@ public class Main {
                 arr[i][j] = Integer.parseInt(tk.nextToken());
             }
         }
-        for (int i = 0; i < count; i++) {
-            dp[count - 1][i] = arr[count - 1][i];
-        }
-        System.out.println(ser(0,0));
+        // 초기 dp 설정 (마지막 행 복사)
+        System.arraycopy(arr[count - 1], 0, dp, 0, count);
 
+        // Bottom-up DP 적용 (위쪽으로 이동하면서 값 갱신)
+        for (int i = count - 2; i >= 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                dp[j] = Math.max(dp[j], dp[j + 1]) + arr[i][j];
+            }
+        }
+
+        System.out.println(dp[0]);
     }
-
-    static int ser(int depth, int loc) {
-        if (depth == count - 1) {
-            return dp[depth][loc];
-        }
-        if (dp[depth][loc] == null) {
-            dp[depth][loc] = Math.max(ser(depth + 1, loc), ser(depth + 1, loc + 1)) + arr[depth][loc];
-        }
-        return dp[depth][loc];
-    }
-
 }
