@@ -11,11 +11,12 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         count = Integer.parseInt(reader.readLine());
 
-        arr = new int[count][count];
+        arr = new int[count][];
         dp = new int[count];
 
         StringTokenizer tk;
         for (int i = 0; i < count; i++) {
+            arr[i] = new int[i + 1];
             tk = new StringTokenizer(reader.readLine());
             for (int j = 0; j < i + 1; j++) {
                 arr[i][j] = Integer.parseInt(tk.nextToken());
