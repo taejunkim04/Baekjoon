@@ -5,25 +5,25 @@ import java.util.StringTokenizer;
 
 public class Main {
     //곱셈
-    static long c;
+    static long a,b, c;
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer tk = new StringTokenizer(reader.readLine());
-        long a = Long.parseLong(tk.nextToken());
-        long b = Long.parseLong(tk.nextToken());
+        a = Long.parseLong(tk.nextToken());
+        b = Long.parseLong(tk.nextToken());
         c = Long.parseLong(tk.nextToken());
 
         System.out.println(pow(a, b));
     }
 
-    static long pow(long A, long b) {
-        if (b == 1) {
-            return A % c;
+    static long pow(long x, long y) {
+        if (y == 1) {
+            return x%c;
         }
-        long temp = pow(A, b / 2);
-        if (b % 2 == 1) {
-            return (temp * temp % c) * A % c;
+        long res = pow(x, y / 2);
+        if (y % 2 == 1) {
+            return (res * res % c) * x % c;
         }
-        return temp * temp % c;
+        return res * res % c;
     }
 }
